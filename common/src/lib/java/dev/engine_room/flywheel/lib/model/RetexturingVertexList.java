@@ -1,8 +1,7 @@
-package com.jozufozu.flywheel.lib.model;
+package dev.engine_room.flywheel.lib.model;
 
-import com.jozufozu.flywheel.api.vertex.MutableVertexList;
-import com.jozufozu.flywheel.lib.vertex.WrappedVertexList;
-
+import dev.engine_room.flywheel.api.vertex.MutableVertexList;
+import dev.engine_room.flywheel.lib.vertex.WrappedVertexList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 /**

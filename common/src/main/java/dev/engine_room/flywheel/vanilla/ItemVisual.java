@@ -1,21 +1,21 @@
-package com.jozufozu.flywheel.vanilla;
+package dev.engine_room.flywheel.vanilla;
 
 import java.util.Objects;
 
-import com.jozufozu.flywheel.api.visualization.VisualizationContext;
-import com.jozufozu.flywheel.lib.instance.InstanceTypes;
-import com.jozufozu.flywheel.lib.instance.TransformedInstance;
-import com.jozufozu.flywheel.lib.model.ModelCache;
-import com.jozufozu.flywheel.lib.model.baked.ItemModelBuilder;
-import com.jozufozu.flywheel.lib.transform.TransformStack;
-import com.jozufozu.flywheel.lib.visual.InstanceRecycler;
-import com.jozufozu.flywheel.lib.visual.SimpleEntityVisual;
-import com.jozufozu.flywheel.lib.visual.components.FireComponent;
-import com.jozufozu.flywheel.lib.visual.components.HitboxComponent;
-import com.jozufozu.flywheel.lib.visual.components.ShadowComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.lib.instance.InstanceTypes;
+import dev.engine_room.flywheel.lib.instance.TransformedInstance;
+import dev.engine_room.flywheel.lib.model.ModelCache;
+import dev.engine_room.flywheel.lib.model.baked.ItemModelBuilder;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import dev.engine_room.flywheel.lib.visual.InstanceRecycler;
+import dev.engine_room.flywheel.lib.visual.SimpleEntityVisual;
+import dev.engine_room.flywheel.lib.visual.component.FireComponent;
+import dev.engine_room.flywheel.lib.visual.component.HitboxComponent;
+import dev.engine_room.flywheel.lib.visual.component.ShadowComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
@@ -36,7 +36,7 @@ public class ItemVisual extends SimpleEntityVisual<ItemEntity> {
 	private static final ThreadLocal<RandomSource> RANDOM = ThreadLocal.withInitial(RandomSource::createNewThreadLocalInstance);
 
 	public static final ModelCache<ItemKey> MODEL_CACHE = new ModelCache<>(stack -> {
-		return new ItemModelBuilder(stack.stack(), stack.model()).build();
+		return ItemModelBuilder.create(stack.stack(), stack.model()).build();
 	});
 
 	private final PoseStack pPoseStack = new PoseStack();

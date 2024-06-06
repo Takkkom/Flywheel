@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnknownNullability;
 
 import com.mojang.blaze3d.vertex.BufferBuilder.RenderedBuffer;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -179,15 +180,15 @@ final class BakedModelBufferer {
 		private final Map<RenderType, MeshEmitter> emitters = new Reference2ReferenceOpenHashMap<>();
 		private final Set<MeshEmitter> active = new ReferenceArraySet<>();
 
-		@Nullable
+		@UnknownNullability
 		private ResultConsumer resultConsumer;
 
 		@Override
 		public VertexConsumer getBuffer(RenderType renderType) {
-			var out = emitters.computeIfAbsent(renderType, type -> new MeshEmitter(new BufferBuilder(type.bufferSize()), type));
+			var out = emitters.computeIfAbsent(renderType, MeshEmitter::new);
 
 			if (active.add(out)) {
-				out.begin(resultConsumer);
+				out.prepare(resultConsumer);
 			}
 
 			return out;

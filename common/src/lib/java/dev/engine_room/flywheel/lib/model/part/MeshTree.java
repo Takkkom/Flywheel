@@ -1,4 +1,4 @@
-package com.jozufozu.flywheel.lib.model.part;
+package dev.engine_room.flywheel.lib.model.part;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,13 +7,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.Nullable;
 
-import com.jozufozu.flywheel.api.event.EndClientResourceReloadEvent;
-import com.jozufozu.flywheel.api.model.Mesh;
-import com.jozufozu.flywheel.impl.InternalFlywheelImpl;
-import com.jozufozu.flywheel.lib.model.SimpleMesh;
-import com.jozufozu.flywheel.lib.vertex.PosTexNormalVertexView;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.engine_room.flywheel.api.model.Mesh;
+import dev.engine_room.flywheel.lib.internal.FlwLibLink;
+import dev.engine_room.flywheel.lib.model.SimpleMesh;
+import dev.engine_room.flywheel.lib.vertex.PosTexNormalVertexView;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -41,7 +40,7 @@ public class MeshTree {
 	}
 
 	@ApiStatus.Internal
-	public static void onEndClientResourceReload(EndClientResourceReloadEvent event) {
+	public static void onEndClientResourceReload() {
 		MESH_TREES.values()
 				.forEach(MeshTree::delete);
 		MESH_TREES.clear();
@@ -82,7 +81,7 @@ public class MeshTree {
 	}
 
 	private static MeshTree convert(ModelPart modelPart, ThreadLocalObjects objects) {
-		var childModelParts = InternalFlywheelImpl.INSTANCE.getModelPartChildren(modelPart);
+		var childModelParts = FlwLibLink.INSTANCE.getModelPartChildren(modelPart);
 
 		Map<String, MeshTree> children = new HashMap<>();
 
@@ -96,7 +95,7 @@ public class MeshTree {
 	private static Mesh compile(ModelPart modelPart, ThreadLocalObjects objects) {
 		var vertexWriter = objects.vertexWriter;
 
-		InternalFlywheelImpl.INSTANCE.compileModelPart(modelPart, IDENTITY, vertexWriter, 0, 0, 1.0F, 1.0F, 1.0F, 1.0F);
+		FlwLibLink.INSTANCE.compileModelPart(modelPart, IDENTITY, vertexWriter, 0, 0, 1.0F, 1.0F, 1.0F, 1.0F);
 
 		var data = vertexWriter.copyDataAndReset();
 

@@ -1,11 +1,10 @@
-package com.jozufozu.flywheel.lib.model;
+package dev.engine_room.flywheel.lib.model;
 
 import org.joml.Vector4fc;
 
-import com.jozufozu.flywheel.api.model.IndexSequence;
-import com.jozufozu.flywheel.api.model.Mesh;
-import com.jozufozu.flywheel.api.vertex.MutableVertexList;
-
+import dev.engine_room.flywheel.api.model.IndexSequence;
+import dev.engine_room.flywheel.api.model.Mesh;
+import dev.engine_room.flywheel.api.vertex.MutableVertexList;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public record RetexturedMesh(Mesh mesh, TextureAtlasSprite sprite) implements Mesh {

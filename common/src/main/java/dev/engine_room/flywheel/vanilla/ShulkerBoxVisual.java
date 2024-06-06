@@ -4,28 +4,19 @@ import java.util.function.Consumer;
 
 import org.joml.Quaternionf;
 
-import com.jozufozu.flywheel.api.instance.Instance;
-import com.jozufozu.flywheel.api.visualization.VisualizationContext;
-import com.jozufozu.flywheel.lib.instance.InstanceTypes;
-import com.jozufozu.flywheel.lib.instance.TransformedInstance;
-import com.jozufozu.flywheel.lib.material.Materials;
-import com.jozufozu.flywheel.lib.model.ModelCache;
-import com.jozufozu.flywheel.lib.model.SingleMeshModel;
-import com.jozufozu.flywheel.lib.model.part.ModelPartConverter;
-import com.jozufozu.flywheel.lib.transform.TransformStack;
-import com.jozufozu.flywheel.lib.visual.AbstractBlockEntityVisual;
-import com.jozufozu.flywheel.lib.visual.SimpleDynamicVisual;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
 import dev.engine_room.flywheel.api.instance.Instance;
+import dev.engine_room.flywheel.api.model.Model;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 import dev.engine_room.flywheel.lib.material.Materials;
 import dev.engine_room.flywheel.lib.model.ModelCache;
+import dev.engine_room.flywheel.lib.model.RetexturedMesh;
 import dev.engine_room.flywheel.lib.model.SingleMeshModel;
-import dev.engine_room.flywheel.lib.model.part.ModelPartConverter;
+import dev.engine_room.flywheel.lib.model.part.MeshTree;
 import dev.engine_room.flywheel.lib.transform.TransformStack;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
 import dev.engine_room.flywheel.lib.visual.SimpleDynamicVisual;

@@ -18,9 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.engine_room.flywheel.api.event.RenderStage;
+import dev.engine_room.flywheel.api.visualization.VisualizationManager;
 import dev.engine_room.flywheel.impl.FlwImplXplat;
 import dev.engine_room.flywheel.impl.event.RenderContextImpl;
 import dev.engine_room.flywheel.impl.visualization.VisualizationManagerImpl;
+import dev.engine_room.flywheel.lib.visual.VisualizationHelper;
 import it.unimi.dsi.fastutil.longs.Long2ObjectMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;

@@ -1,19 +1,19 @@
-package com.jozufozu.flywheel.vanilla;
+package dev.engine_room.flywheel.vanilla;
 
 import static net.minecraft.client.renderer.entity.LivingEntityRenderer.getOverlayCoords;
 import static net.minecraft.client.renderer.entity.LivingEntityRenderer.isEntityUpsideDown;
 
-import com.jozufozu.flywheel.api.material.Material;
-import com.jozufozu.flywheel.api.visualization.VisualizationContext;
-import com.jozufozu.flywheel.lib.material.SimpleMaterial;
-import com.jozufozu.flywheel.lib.transform.TransformStack;
-import com.jozufozu.flywheel.lib.visual.SimpleEntityVisual;
-import com.jozufozu.flywheel.lib.visual.components.FireComponent;
-import com.jozufozu.flywheel.lib.visual.components.HitboxComponent;
-import com.jozufozu.flywheel.lib.visual.components.ShadowComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
+import dev.engine_room.flywheel.api.material.Material;
+import dev.engine_room.flywheel.api.visualization.VisualizationContext;
+import dev.engine_room.flywheel.lib.material.SimpleMaterial;
+import dev.engine_room.flywheel.lib.transform.TransformStack;
+import dev.engine_room.flywheel.lib.visual.SimpleEntityVisual;
+import dev.engine_room.flywheel.lib.visual.component.FireComponent;
+import dev.engine_room.flywheel.lib.visual.component.HitboxComponent;
+import dev.engine_room.flywheel.lib.visual.component.ShadowComponent;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.core.Direction;
@@ -72,8 +72,7 @@ public class CowVisual extends SimpleEntityVisual<Cow> {
 		TransformStack.of(stack)
 				.translate(getVisualPosition(ctx.partialTick()));
 
-		boolean shouldSit = entity.isPassenger() && (entity.getVehicle() != null && entity.getVehicle()
-				.shouldRiderSit());
+		boolean shouldSit = entity.isPassenger(); // && (entity.getVehicle() != null && entity.getVehicle().shouldRiderSit());
 		this.cowQuadrupedComponent.riding = shouldSit;
 		this.cowQuadrupedComponent.young = entity.isBaby();
 

@@ -1,6 +1,6 @@
-package com.jozufozu.flywheel.lib.vertex;
+package dev.engine_room.flywheel.lib.vertex;
 
-import com.jozufozu.flywheel.api.vertex.MutableVertexList;
+import dev.engine_room.flywheel.api.vertex.MutableVertexList;
 
 public class WrappedVertexList implements MutableVertexList {
 	protected final MutableVertexList delegate;

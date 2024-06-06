@@ -1,7 +1,5 @@
 package dev.engine_room.flywheel.impl;
 
-import java.util.Map;
-
 import org.jetbrains.annotations.Nullable;
 
 import dev.engine_room.flywheel.api.backend.Backend;
@@ -95,15 +93,5 @@ public class FlwApiLinkImpl implements FlwApiLink {
 	@Override
 	public <T extends Entity> void setVisualizer(EntityType<T> type, EntityVisualizer<? super T> visualizer) {
 		VisualizerRegistryImpl.setVisualizer(type, visualizer);
-	}
-
-	@Override
-	public Map<String, ModelPart> getModelPartChildren(ModelPart part) {
-		return ((ModelPartAccessor) (Object) part).flywheel$children();
-	}
-
-	@Override
-	public void compileModelPart(ModelPart part, PoseStack.Pose pose, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
-		((ModelPartAccessor) (Object) part).flywheel$compile(pose, consumer, light, overlay, red, green, blue, alpha);
 	}
 }

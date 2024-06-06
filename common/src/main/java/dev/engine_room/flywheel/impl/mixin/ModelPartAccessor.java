@@ -1,4 +1,4 @@
-package com.jozufozu.flywheel.impl.mixin;
+package dev.engine_room.flywheel.impl.mixin;
 
 import java.util.Map;
 
