@@ -8,13 +8,16 @@ import java.util.function.Consumer;
 import org.joml.Quaternionf;
 
 import dev.engine_room.flywheel.api.instance.Instance;
+import dev.engine_room.flywheel.api.model.Model;
 import dev.engine_room.flywheel.api.visualization.VisualizationContext;
 import dev.engine_room.flywheel.lib.instance.InstanceTypes;
 import dev.engine_room.flywheel.lib.instance.OrientedInstance;
 import dev.engine_room.flywheel.lib.instance.TransformedInstance;
 import dev.engine_room.flywheel.lib.material.Materials;
 import dev.engine_room.flywheel.lib.model.ModelCache;
+import dev.engine_room.flywheel.lib.model.RetexturedMesh;
 import dev.engine_room.flywheel.lib.model.SingleMeshModel;
+import dev.engine_room.flywheel.lib.model.part.MeshTree;
 import dev.engine_room.flywheel.lib.model.part.ModelPartConverter;
 import dev.engine_room.flywheel.lib.util.Pair;
 import dev.engine_room.flywheel.lib.visual.AbstractBlockEntityVisual;
@@ -42,23 +45,23 @@ public class ChestVisual<T extends BlockEntity & LidBlockEntity> extends Abstrac
 	}
 
 	private static final ModelCache<Pair<ChestType, Material>> BOTTOM_MODELS = new ModelCache<>(key -> {
-		return new SingleMeshModel(ModelPartConverter.convert(LAYER_LOCATIONS.get(key.first()), key.second().sprite(), "bottom"), Materials.CHEST);
+		return chestModel(key, "bottom");
 	});
 	private static final ModelCache<Pair<ChestType, Material>> LID_MODELS = new ModelCache<>(key -> {
-		return new SingleMeshModel(ModelPartConverter.convert(LAYER_LOCATIONS.get(key.first()), key.second().sprite(), "lid"), Materials.CHEST);
+		return chestModel(key, "lid");
 	});
 	private static final ModelCache<Pair<ChestType, Material>> LOCK_MODELS = new ModelCache<>(key -> {
-		return new SingleMeshModel(ModelPartConverter.convert(LAYER_LOCATIONS.get(key.first()), key.second().sprite(), "lock"), Materials.CHEST);
+		return chestModel(key, "lock");
 	});
 
 	private OrientedInstance bottom;
+
 	private TransformedInstance lid;
 	private TransformedInstance lock;
-
 	private ChestType chestType;
+
 	private final Quaternionf baseRotation = new Quaternionf();
 	private Float2FloatFunction lidProgress;
-
 	private float lastProgress = Float.NaN;
 
 	public ChestVisual(VisualizationContext ctx, T blockEntity) {
@@ -140,15 +143,13 @@ public class ChestVisual<T extends BlockEntity & LidBlockEntity> extends Abstrac
 				.rotateCentered(baseRotation)
 				.translate(0, 9f / 16f, 1f / 16f)
 				.rotateX(angleX)
-				.translate(0, -9f / 16f, -1f / 16f)
 				.setChanged();
 
 		lock.loadIdentity()
 				.translate(getVisualPosition())
 				.rotateCentered(baseRotation)
-				.translate(0, 8f / 16f, 0)
+				.translate(0, 9f / 16f, 1f / 16f)
 				.rotateX(angleX)
-				.translate(0, -8f / 16f, 0)
 				.setChanged();
 	}
 
@@ -169,5 +170,14 @@ public class ChestVisual<T extends BlockEntity & LidBlockEntity> extends Abstrac
 		bottom.delete();
 		lid.delete();
 		lock.delete();
+	}
+
+	public static Model chestModel(Pair<ChestType, Material> key, String child) {
+		var mesh = MeshTree.get(LAYER_LOCATIONS.get(key.first()))
+				.child(child)
+				.mesh();
+		var sprite = key.second()
+				.sprite();
+		return new SingleMeshModel(new RetexturedMesh(mesh, sprite), Materials.CHEST);
 	}
 }

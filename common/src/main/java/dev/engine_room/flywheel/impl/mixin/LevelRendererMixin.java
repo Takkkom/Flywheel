@@ -27,8 +27,10 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.server.level.BlockDestructionProgress;
+import net.minecraft.world.entity.Entity;
 
 @Mixin(value = LevelRenderer.class, priority = 1001) // Higher priority to go after Sodium
 abstract class LevelRendererMixin {
@@ -75,6 +77,14 @@ abstract class LevelRendererMixin {
 		var manager = VisualizationManagerImpl.get(level);
 		if (manager != null) {
 			manager.renderCrumbling(flywheel$renderContext, destructionProgress);
+		}
+	}
+
+	// ENTITY CANCELLING
+	@Inject(method = "renderEntity", at = @At("HEAD"), cancellable = true)
+	private void flywheel$decideNotToRenderEntity(Entity pEntity, double pCamX, double pCamY, double pCamZ, float pPartialTick, PoseStack pPoseStack, MultiBufferSource pBufferSource, CallbackInfo ci) {
+		if (VisualizationManager.supportsVisualization(pEntity.level()) && VisualizationHelper.shouldSkipRender(pEntity)) {
+			ci.cancel();
 		}
 	}
 
